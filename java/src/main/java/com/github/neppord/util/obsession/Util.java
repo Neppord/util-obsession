@@ -52,14 +52,10 @@ class Util {
 
     private static String getValueFromJson(String json, String key) {
         final Scanner scanner = new Scanner(new StringReader(json));
-        final Stream<MatchResult> results = scanner.findAll("\"([^\"]*)\"");
-        boolean returnNext = false;
+        final Stream<MatchResult> results = scanner.findAll("\"([^\"]*)\"\\s*:\\s*\"([^\"]*)\"");
         for (MatchResult m: results.collect(Collectors.toList())) {
-            if (returnNext) {
-                return m.group(1);
-            }
             if (m.group(1).equals(key)) {
-                returnNext = true;
+                return m.group(2);
             }
         }
         return "";
