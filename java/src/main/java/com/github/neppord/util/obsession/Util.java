@@ -1,8 +1,13 @@
 package com.github.neppord.util.obsession;
 
+import java.io.StringReader;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Scanner;
+import java.util.regex.MatchResult;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Util {
 
@@ -35,5 +40,28 @@ class Util {
                 "Password to short (needs to be atleast 8 characters long)"
             );
         }
+    }
+
+    static String getPassword(String json) {
+        return getValueFromJson(json, "password");
+    }
+
+    static String getUsername(String json) {
+        return getValueFromJson(json, "username");
+    }
+
+    private static String getValueFromJson(String json, String key) {
+        final Scanner scanner = new Scanner(new StringReader(json));
+        final Stream<MatchResult> results = scanner.findAll("\"([^\"]*)\"");
+        boolean returnNext = false;
+        for (MatchResult m: results.collect(Collectors.toList())) {
+            if (returnNext) {
+                return m.group(1);
+            }
+            if (m.group(1).equals(key)) {
+                returnNext = true;
+            }
+        }
+        return "";
     }
 }

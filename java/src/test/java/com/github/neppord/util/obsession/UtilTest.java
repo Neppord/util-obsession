@@ -33,4 +33,36 @@ public class UtilTest {
     public void validatePasswordMissingAlpha() throws PasswordValidationException {
         Util.validatePassword("12341234");
     }
+
+    @Test
+    public void getPasswordFromUserBlob() {
+        assertEquals(
+            "abcd1234",
+            Util.getPassword("{\"password\": \"abcd1234\", \"username\": \"smith\"}")
+        );
+        assertEquals(
+            "abcd1234",
+            Util.getPassword("{\"username\": \"smith\", \"password\": \"abcd1234\"}")
+        );
+        assertEquals(
+            "abcd5678",
+            Util.getPassword("{\"password\": \"abcd5678\", \"username\": \"smith\"}")
+        );
+    }
+
+    @Test
+    public void getUsernameFromUserBlob() {
+        assertEquals(
+            "smith",
+            Util.getUsername("{\"password\": \"abcd1234\", \"username\": \"smith\"}")
+        );
+        assertEquals(
+            "smith",
+            Util.getUsername("{\"username\": \"smith\", \"password\": \"abcd1234\"}")
+        );
+        assertEquals(
+            "john",
+            Util.getUsername("{\"password\": \"abcd5678\", \"username\": \"john\"}")
+        );
+    }
 }
