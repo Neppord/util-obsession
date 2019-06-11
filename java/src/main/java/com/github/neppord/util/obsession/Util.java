@@ -60,4 +60,8 @@ class Util {
         }
         return "";
     }
+
+    static String createUserBlob(String username, String password) {
+        return String.format("{\"password\": \"%2$s\", \"username\": \"%1$s\"}", password, username);
+    }
 }

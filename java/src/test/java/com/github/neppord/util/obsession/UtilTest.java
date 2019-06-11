@@ -65,4 +65,14 @@ public class UtilTest {
             Util.getUsername("{\"password\": \"abcd5678\", \"username\": \"john\"}")
         );
     }
+
+    @Test
+    public void createUserBlobFromUsernameAndPassword() {
+        String password = "abcd1234";
+        String username = "smith";
+        assertEquals(
+            "{\"password\": \"abcd1234\", \"username\": \"smith\"}",
+            Util.createUserBlob(password, username)
+        );
+    }
 }
