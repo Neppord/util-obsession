@@ -10,8 +10,8 @@ public class UtilTest {
 
     @Test
     public void hashPassword() throws NoSuchAlgorithmException {
-        final String hash = Util.hashPassword("1234abcd");
-        assertEquals("Ihs3/NtS0PfDm70L4hHbDhwAyl++zVeIeARjAmxrlks=", hash);
+        assertEquals("Ihs3/NtS0PfDm70L4hHbDhwAyl++zVeIeARjAmxrlks=", Util.hashPassword("1234abcd"));
+        assertEquals("6c7nGrky/ehjM40Ivk3p3+OeoEm9r7NCzmWexUULaa4=", Util.hashPassword("abcd1234"));
     }
 
     @Test
